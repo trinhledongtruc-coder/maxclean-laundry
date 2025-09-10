@@ -1,10 +1,4 @@
-# Build a polished Bootstrap-based landing page package for the user with animated CTAs and image slots.
-import os, zipfile, textwrap, json, pathlib
-
-root = "/mnt/data/maxclean-pro"
-os.makedirs(root, exist_ok=True)
-
-index_html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="utf-8">
@@ -17,16 +11,15 @@ index_html = """<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="images/logo.png">
+  <link rel="icon" href="images/logo.jpg">
   <style>
     :root{
-      --brand:#4EC4D3;      /* xanh thương hiệu gần với logo */
+      --brand:#4EC4D3;
       --brand-dark:#2E9EAA;
-      --accent:#E74C3C;     /* nút CTA đỏ */
+      --accent:#E74C3C;
     }
     *{scroll-behavior:smooth}
     body{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
-    /* Header */
     .navbar{background: var(--brand);}
     .navbar .nav-link, .navbar-brand{color:#fff!important;font-weight:600;}
     .navbar .btn-cta{background:#fff;color:#000;font-weight:700;border-radius:10px}
@@ -41,61 +34,36 @@ index_html = """<!DOCTYPE html>
     .hero::before{
       content:"";
       position:absolute;inset:0;
-      background: url('images/banner.jpg') center/cover no-repeat;
+      background: url('images/banner.png') center/cover no-repeat;
       opacity:.22;
     }
     .hero .logo-round{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #fff}
     .badge-pill{background:#fff;color:#000;border-radius: 50px;padding:10px 14px;font-weight:600}
     .section-muted{background:#f7fbfc}
-    /* Cards */
     .feature-card{border:0;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
     .feature-icon{width:56px;height:56px;border-radius:14px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
-    /* CTA bounce */
     .cta-bounce{display:inline-block;background:var(--accent);color:#fff!important;padding:14px 22px;border-radius:12px;font-weight:800;text-decoration:none}
     @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}60%{transform:translateY(-4px)}}
     .animate-bounce{animation:bounce 1.6s infinite}
-    /* Floating buttons */
     .float-cta{position:fixed;right:16px;bottom:16px;z-index:1040;display:flex;flex-direction:column;gap:10px}
     .float-cta a{display:flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:12px 14px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.18)}
     .float-cta a.call{background:#1E90FF}
-    /* Gallery */
     .gallery img{border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
-    /* Footer */
     footer{background:var(--brand-dark);color:#fff}
-    /* Mobile sticky bar */
     @media (max-width: 576px){
       .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #eee;padding:10px;z-index:1040}
     }
   </style>
-  <!-- JSON-LD LocalBusiness for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "DryCleaningOrLaundry",
-    "name": "MAXCLEAN LAUNDRY",
-    "image": "https://your-domain/images/logo.png",
-    "telephone": "+84-356-796-872",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "156 Tân Phước, Phường 6, Quận 10",
-      "addressLocality": "TP.HCM",
-      "addressCountry": "VN"
-    },
-    "url": "https://your-domain/"
-  }
-  </script>
 </head>
 <body>
-  <!-- Sticky Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
-        <img src="images/logo.png" alt="MaxClean Logo" width="36" height="36" class="rounded-circle">
+        <img src="images/logo.jpg" alt="Logo" width="36" height="36" class="rounded-circle">
         MAXCLEAN
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="#services">Dịch vụ</a></li>
@@ -113,9 +81,9 @@ index_html = """<!DOCTYPE html>
     <div class="container position-relative">
       <div class="row align-items-center">
         <div class="col-lg-7">
-          <img src="images/logo.png" class="logo-round mb-3" alt="Logo">
+          <img src="images/logo.jpg" class="logo-round mb-3" alt="Logo">
           <h1 class="display-5 fw-bold">Giặt sạch, giao nhanh — thơm tho chỉ sau <u>24h</u></h1>
-          <p class="lead">Không còn mất hàng giờ giặt giũ. Một cú click — chúng tôi nhận đồ, giặt sấy bằng máy riêng từng khách, gấp gọn và giao lại đúng hẹn.</p>
+          <p class="lead">Một cú click — chúng tôi nhận đồ, giặt bằng máy riêng từng khách, gấp gọn và giao lại đúng hẹn.</p>
           <div class="d-flex gap-2 flex-wrap">
             <a href="https://zalo.me/0356796872" class="cta-bounce animate-bounce">Đặt lịch ngay (Zalo)</a>
             <a href="tel:0356796872" class="btn btn-light fw-bold">Gọi 0356.79.68.72</a>
@@ -128,7 +96,7 @@ index_html = """<!DOCTYPE html>
           </div>
         </div>
         <div class="col-lg-5 d-none d-lg-block">
-          <img src="images/store.jpg" class="img-fluid rounded-4 shadow-lg" alt="Cửa tiệm">
+          <img src="images/store.png" class="img-fluid rounded-4 shadow-lg" alt="Cửa tiệm">
         </div>
       </div>
     </div>
@@ -139,16 +107,11 @@ index_html = """<!DOCTYPE html>
     <div class="container">
       <div class="row align-items-center g-4">
         <div class="col-md-6">
-          <img src="images/owner.jpg" class="img-fluid rounded-4 shadow" alt="Chủ tiệm & không gian máy">
+          <img src="images/owner.png" class="img-fluid rounded-4 shadow" alt="Chủ tiệm">
         </div>
         <div class="col-md-6">
           <h2 class="fw-bold">MAXCLEAN LAUNDRY là ai?</h2>
-          <p>Chúng tôi bắt đầu từ một cửa hàng nhỏ (2013). Hơn 10 năm phục vụ cộng đồng Quận 10, MAXCLEAN kiên định với sứ mệnh <strong>“Sạch từ sợi vải – Bền từ niềm tin”</strong>.</p>
-          <ul class="list-unstyled">
-            <li>• Máy Electrolux hiện đại, quy trình chuẩn.</li>
-            <li>• Nước giặt/xả chuyên dụng — an toàn cho da, bền màu vải.</li>
-            <li>• Quy trình minh bạch, <strong>không lẫn đồ</strong>.</li>
-          </ul>
+          <p>Bắt đầu từ cửa hàng nhỏ năm 2013, nay chúng tôi đã phục vụ hàng nghìn khách tại Quận 10. Sứ mệnh: <strong>“Sạch từ sợi vải – Bền từ niềm tin”</strong>.</p>
         </div>
       </div>
     </div>
@@ -163,109 +126,65 @@ index_html = """<!DOCTYPE html>
           <div class="feature-card p-4 h-100">
             <div class="feature-icon mb-3">🧺</div>
             <h5 class="fw-bold">Giặt & Sấy</h5>
-            <p>Máy riêng từng khách — sạch thơm, gấp gọn, trả đồ 24h.</p>
-            <img src="images/machines.jpg" class="img-fluid rounded mt-2" alt="Máy giặt">
+            <img src="images/machines.png" class="img-fluid rounded mt-2" alt="Máy giặt">
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card p-4 h-100">
             <div class="feature-icon mb-3">🧼</div>
             <h5 class="fw-bold">Giặt Hấp</h5>
-            <p>Áo dài, vest, váy dự tiệc… giữ phom dáng, bền màu.</p>
-            <img src="images/shelves.jpg" class="img-fluid rounded mt-2" alt="Kệ đồ">
+            <img src="images/shelves.png" class="img-fluid rounded mt-2" alt="Kệ đồ">
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card p-4 h-100">
             <div class="feature-icon mb-3">👟</div>
             <h5 class="fw-bold">Vệ Sinh Giày</h5>
-            <p>Chăm sóc sneaker, da/da lộn — có gói đặc biệt theo yêu cầu.</p>
-            <img src="images/ba1.jpg" class="img-fluid rounded mt-2" alt="Before After giày">
+            <img src="images/ba1.png" class="img-fluid rounded mt-2" alt="Giày Before/After">
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Gallery Before/After -->
+  <!-- Gallery -->
   <section class="py-5 section-muted">
     <div class="container">
-      <h2 class="text-center fw-bold mb-4">Trước & Sau — Khách hàng nói thay chúng tôi</h2>
+      <h2 class="text-center fw-bold mb-4">Trước & Sau</h2>
       <div class="row g-3 gallery">
-        <div class="col-6 col-md-4"><img src="images/ba1.jpg" alt="Before After 1" class="img-fluid"></div>
-        <div class="col-6 col-md-4"><img src="images/ba2.jpg" alt="Before After 2" class="img-fluid"></div>
-        <div class="col-6 col-md-4"><img src="images/ba3.jpg" alt="Before After 3" class="img-fluid"></div>
-        <div class="col-6 col-md-4"><img src="images/ba4.jpg" alt="Before After 4" class="img-fluid"></div>
-        <div class="col-6 col-md-4"><img src="images/ba5.jpg" alt="Before After 5" class="img-fluid"></div>
-        <div class="col-6 col-md-4"><img src="images/packaging.jpg" alt="Đóng gói sạch sẽ" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba1.png" alt="BA1" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba2.png" alt="BA2" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba3.png" alt="BA3" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba4.png" alt="BA4" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/packaging.png" alt="Đóng gói" class="img-fluid"></div>
       </div>
     </div>
   </section>
 
   <!-- Pricing -->
   <section id="pricing" class="py-5">
-    <div class="container">
-      <h2 class="text-center fw-bold mb-4">Bảng giá tham khảo</h2>
-      <div class="row g-4 align-items-stretch">
-        <div class="col-lg-6">
-          <div class="feature-card p-4 h-100">
-            <h5 class="fw-bold">Giặt Sấy</h5>
-            <ul class="mb-3">
-              <li>1–3kg: <strong>45k</strong></li>
-              <li>3.1–5kg: <strong>55k</strong></li>
-              <li>Từ 5.1kg: <strong>12k/kg</strong></li>
-            </ul>
-            <p class="mb-1">🔥 Combo Mền/Drap chỉ từ <strong>45k</strong></p>
-            <p class="text-muted">* Mỗi khách một máy riêng — không lẫn đồ</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="feature-card p-4 h-100">
-            <h5 class="fw-bold">Vệ Sinh Giày & Giặt Hấp</h5>
-            <ul class="mb-3">
-              <li>Sneaker cơ bản: <strong>70k</strong> — Chăm sóc đặc biệt: <strong>100–180k</strong></li>
-              <li>Da, da lộn: <strong>120–180k</strong></li>
-              <li>Áo dài: <strong>100–150k</strong> | Áo cưới: <strong>300k</strong> | Vest: <strong>100k</strong></li>
-            </ul>
-            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#priceboard">Xem bảng giá đầy đủ (ảnh)</button>
-          </div>
-        </div>
-      </div>
+    <div class="container text-center">
+      <h2 class="fw-bold mb-4">Bảng giá tham khảo</h2>
+      <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#priceboard">Xem bảng giá đầy đủ (ảnh)</button>
     </div>
   </section>
 
-  <!-- Priceboard Modal -->
-  <div class="modal fade" id="priceboard" tabindex="-1" aria-hidden="true">
+  <!-- Modal -->
+  <div class="modal fade" id="priceboard" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body p-0">
-          <img src="images/priceboard.jpg" class="img-fluid w-100" alt="Bảng giá đầy đủ">
-        </div>
-      </div>
+      <div class="modal-content"><div class="modal-body p-0"><img src="images/priceboard.png" class="img-fluid w-100" alt="Bảng giá"></div></div>
     </div>
   </div>
 
   <!-- Process -->
   <section id="process" class="py-5 section-muted">
-    <div class="container">
-      <h2 class="text-center fw-bold mb-4">Quy trình 4 bước — Nhanh & Minh bạch</h2>
-      <div class="row g-4 text-center">
-        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">📲</div><p class="mb-0">Đặt lịch online / Zalo</p></div></div>
-        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">🚚</div><p class="mb-0">Nhận đồ tận nơi (500m)</p></div></div>
-        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">🧼</div><p class="mb-0">Máy riêng từng khách</p></div></div>
-        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">✅</div><p class="mb-0">Giao lại 24h — thơm lâu</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Big CTA + Countdown -->
-  <section class="py-5" style="background:linear-gradient(120deg, var(--brand) 0%, var(--brand-dark) 100%);color:#fff">
     <div class="container text-center">
-      <h2 class="fw-bold">Ưu đãi chỉ còn <span id="countdown">--:--:--</span></h2>
-      <p>Đặt lịch hôm nay để nhận quà tặng vệ sinh giày trị giá 70k (số lượng 20 suất trong tháng).</p>
-      <div class="d-flex gap-2 justify-content-center">
-        <a href="https://zalo.me/0356796872" class="cta-bounce animate-bounce">Chat Zalo ngay</a>
-        <a href="tel:0356796872" class="btn btn-light fw-bold">Gọi 0356.79.68.72</a>
+      <h2 class="fw-bold mb-4">Quy trình 4 bước</h2>
+      <div class="row g-4">
+        <div class="col-6 col-md-3"><div class="feature-card p-3">📲 Đặt lịch</div></div>
+        <div class="col-6 col-md-3"><div class="feature-card p-3">🚚 Nhận đồ</div></div>
+        <div class="col-6 col-md-3"><div class="feature-card p-3">🧼 Giặt</div></div>
+        <div class="col-6 col-md-3"><div class="feature-card p-3">✅ Giao 24h</div></div>
       </div>
     </div>
   </section>
@@ -273,87 +192,28 @@ index_html = """<!DOCTYPE html>
   <!-- Contact -->
   <section id="contact" class="py-5">
     <div class="container">
-      <div class="row g-4 align-items-stretch">
-        <div class="col-lg-6">
-          <h2 class="fw-bold">Liên hệ</h2>
-          <p>Địa chỉ: <strong>156 Tân Phước, P.6, Q.10, TP.HCM</strong></p>
-          <p>Hotline: <a href="tel:0356796872" class="fw-bold text-decoration-none">0356.79.68.72</a></p>
-          <p>Email: <a href="mailto:maxcleanlaundry98@gmail.com">maxcleanlaundry98@gmail.com</a></p>
-          <div class="d-flex gap-2">
-            <a href="https://zalo.me/0356796872" class="btn btn-primary">Chat Zalo</a>
-            <a href="tel:0356796872" class="btn btn-outline-dark">Gọi ngay</a>
-          </div>
-          <p class="small text-muted mt-3">* Nếu cần form nhận thông tin miễn phí, tạo Formspree và thay action vào form dưới.</p>
-          <form class="mt-3" method="post" action="">
-            <input class="form-control mb-2" type="text" name="name" placeholder="Họ và tên" required>
-            <input class="form-control mb-2" type="tel" name="phone" placeholder="Số điện thoại" required>
-            <select class="form-select mb-2" name="service">
-              <option value="">Dịch vụ quan tâm</option>
-              <option>Giặt & Sấy</option>
-              <option>Giặt Hấp</option>
-              <option>Vệ Sinh Giày</option>
-            </select>
-            <button class="btn btn-success w-100" type="submit">Gửi ngay — Nhận xác nhận trong 15 phút</button>
-          </form>
-        </div>
-        <div class="col-lg-6">
-          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow">
-            <iframe
-              src="https://www.google.com/maps?q=156%20T%C3%A2n%20Ph%C6%B0%E1%BB%9Bc%20Qu%E1%BA%ADn%2010&output=embed"
-              title="Google Map"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
+      <h2 class="fw-bold text-center mb-4">Liên hệ</h2>
+      <p class="text-center">📍 156 Tân Phước, P.6, Q.10, TP.HCM | ☎ 0356.79.68.72</p>
+      <div class="text-center">
+        <a href="https://zalo.me/0356796872" class="btn btn-danger">💬 Chat Zalo</a>
+        <a href="tel:0356796872" class="btn btn-outline-dark">📞 Gọi</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-4">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-      <div class="d-flex align-items-center gap-2">
-        <img src="images/logo.png" alt="Logo" width="36" height="36" class="rounded-circle">
-        <strong>MAXCLEAN LAUNDRY</strong>
-      </div>
-      <small>© 2025 MaxClean Laundry — Chính sách bảo mật • Điều khoản sử dụng</small>
-    </div>
+  <footer class="py-4 text-center text-white" style="background:var(--brand-dark)">
+    <img src="images/logo.jpg" alt="Logo" width="36" class="rounded-circle me-2">
+    MAXCLEAN LAUNDRY © 2025
   </footer>
 
-  <!-- Floating CTA buttons -->
+  <!-- Floating CTA -->
   <div class="float-cta d-none d-sm-flex">
     <a class="animate-bounce" href="https://zalo.me/0356796872">💬 Zalo</a>
     <a class="call" href="tel:0356796872">📞 Gọi ngay</a>
   </div>
 
-  <!-- Mobile bottom bar -->
-  <div class="bottom-bar d-sm-none">
-    <div class="container d-flex justify-content-between gap-2">
-      <a href="https://zalo.me/0356796872" class="btn btn-danger flex-fill">💬 Chat Zalo</a>
-      <a href="tel:0356796872" class="btn btn-outline-dark flex-fill">📞 Gọi</a>
-    </div>
-  </div>
-
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-  <script>
-    // Countdown đến cuối tháng hiện tại
-    (function(){
-      const el = document.getElementById('countdown');
-      const now = new Date();
-      const end = new Date(now.getFullYear(), now.getMonth()+1, 1, 0,0,0); // đầu tháng sau
-      function tick(){
-        const diff = end - new Date();
-        if(diff <= 0){ el.textContent = "00:00:00"; return; }
-        const s = Math.floor(diff/1000);
-        const d = Math.floor(s/86400);
-        const h = Math.floor((s%86400)/3600);
-        const m = Math.floor((s%3600)/60);
-        const ss = s%60;
-        el.textContent = (d>0? d+"d ":"") + String(h).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(ss).padStart(2,'0');
-      }
-      tick(); setInterval(tick,1000);
-    })();
-  </script>
 </body>
 </html>
