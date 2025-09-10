@@ -108,10 +108,24 @@
             <a href="https://zalo.me/0356796872" class="cta-bounce animate-bounce">Đặt lịch ngay (Zalo)</a>
             <a href="https://www.facebook.com/profile.php?id=61575070660908" class="cta-bounce animate-bounce">Đặt lịch ngay (Facebook)</a>
            <div class="text-center mt-3">
-  <a href="tel:0356796872" class="btn btn-success fw-bold px-4 py-2">
+  <a href="tel:0356796872" 
+     class="btn btn-light fw-bold animate-bounce" 
+     style="border-radius:12px; padding:12px 24px; font-size:16px;">
     📞 Gọi 0356.79.68.72
   </a>
 </div>
+
+<style>
+@keyframes bounce {
+  0%,20%,50%,80%,100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
+}
+.animate-bounce {
+  display:inline-block;
+  animation:bounce 1.6s infinite;
+}
+</style>
           </div>
         </div>
         <div class="col-lg-5 d-none d-lg-block">
