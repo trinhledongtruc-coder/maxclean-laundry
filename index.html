@@ -1,139 +1,386 @@
-<!DOCTYPE html>
+# Build a polished Bootstrap-based landing page package for the user with animated CTAs and image slots.
+import os, zipfile, textwrap, json, pathlib
+
+root = "/mnt/data/maxclean-pro"
+os.makedirs(root, exist_ok=True)
+
+index_html = """<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dịch vụ Giặt Ủi &amp; Giặt Sấy Chuyên Nghiệp – MAXCLEAN LAUNDRY</title>
-  <meta name="description" content="MAXCLEAN LAUNDRY cung cấp dịch vụ giặt ủi, giặt sấy, giặt hấp và vệ sinh giày chuyên nghiệp tại TP.HCM. Giao nhận tận nơi – Giá cả minh bạch – Ưu đãi chỉ trong tháng này!">
-  <meta name="keywords" content="giặt ủi, giặt sấy, giặt hấp, vệ sinh giày, dịch vụ giặt ủi Hồ Chí Minh, maxclean laundry">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAXCLEAN LAUNDRY — Giặt Ủi & Giặt Sấy Giao Nhanh 24h</title>
+  <meta name="description" content="MAXCLEAN LAUNDRY: Giặt ủi, giặt sấy, giặt hấp & vệ sinh giày tại Q10, TP.HCM. Máy riêng từng khách — trả đồ 24h — giao nhận tận nơi 500m.">
+  <meta name="keywords" content="giặt ủi, giặt sấy, giặt hấp, vệ sinh giày, laundry quan 10, maxclean laundry">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/logo.png">
+  <style>
+    :root{
+      --brand:#4EC4D3;      /* xanh thương hiệu gần với logo */
+      --brand-dark:#2E9EAA;
+      --accent:#E74C3C;     /* nút CTA đỏ */
+    }
+    *{scroll-behavior:smooth}
+    body{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;}
+    /* Header */
+    .navbar{background: var(--brand);}
+    .navbar .nav-link, .navbar-brand{color:#fff!important;font-weight:600;}
+    .navbar .btn-cta{background:#fff;color:#000;font-weight:700;border-radius:10px}
+    .hero{
+      position:relative;
+      color:#fff;
+      background: var(--brand);
+      min-height: 70vh;
+      display:flex;align-items:center;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;inset:0;
+      background: url('images/banner.jpg') center/cover no-repeat;
+      opacity:.22;
+    }
+    .hero .logo-round{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #fff}
+    .badge-pill{background:#fff;color:#000;border-radius: 50px;padding:10px 14px;font-weight:600}
+    .section-muted{background:#f7fbfc}
+    /* Cards */
+    .feature-card{border:0;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
+    .feature-icon{width:56px;height:56px;border-radius:14px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px}
+    /* CTA bounce */
+    .cta-bounce{display:inline-block;background:var(--accent);color:#fff!important;padding:14px 22px;border-radius:12px;font-weight:800;text-decoration:none}
+    @keyframes bounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}60%{transform:translateY(-4px)}}
+    .animate-bounce{animation:bounce 1.6s infinite}
+    /* Floating buttons */
+    .float-cta{position:fixed;right:16px;bottom:16px;z-index:1040;display:flex;flex-direction:column;gap:10px}
+    .float-cta a{display:flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:12px 14px;border-radius:999px;text-decoration:none;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .float-cta a.call{background:#1E90FF}
+    /* Gallery */
+    .gallery img{border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    /* Footer */
+    footer{background:var(--brand-dark);color:#fff}
+    /* Mobile sticky bar */
+    @media (max-width: 576px){
+      .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #eee;padding:10px;z-index:1040}
+    }
+  </style>
+  <!-- JSON-LD LocalBusiness for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DryCleaningOrLaundry",
+    "name": "MAXCLEAN LAUNDRY",
+    "image": "https://your-domain/images/logo.png",
+    "telephone": "+84-356-796-872",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "156 Tân Phước, Phường 6, Quận 10",
+      "addressLocality": "TP.HCM",
+      "addressCountry": "VN"
+    },
+    "url": "https://your-domain/"
+  }
+  </script>
 </head>
 <body>
-  <!-- Section 1: Header (đơn giản, chưa có CSS cố định) -->
-  <header>
-    <h1>MAXCLEAN LAUNDRY</h1>
-    <nav>
-      <a href="#home">Trang chủ</a> |
-      <a href="#services">Dịch vụ</a> |
-      <a href="#pricing">Bảng giá</a> |
-      <a href="#contact">Liên hệ</a>
-    </nav>
-    <p>📞 <a href="tel:0356796872">0356.79.68.72</a></p>
-    <!-- CTA dẫn thẳng tới Zalo -->
-    <p><a href="https://zalo.me/0356796872">Đặt lịch ngay (Zalo)</a></p>
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+        <img src="images/logo.png" alt="MaxClean Logo" width="36" height="36" class="rounded-circle">
+        MAXCLEAN
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#services">Dịch vụ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Bảng giá</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">Quy trình</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Liên hệ</a></li>
+        </ul>
+        <a href="https://zalo.me/0356796872" class="btn btn-cta">Chat Zalo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header id="home" class="hero">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <img src="images/logo.png" class="logo-round mb-3" alt="Logo">
+          <h1 class="display-5 fw-bold">Giặt sạch, giao nhanh — thơm tho chỉ sau <u>24h</u></h1>
+          <p class="lead">Không còn mất hàng giờ giặt giũ. Một cú click — chúng tôi nhận đồ, giặt sấy bằng máy riêng từng khách, gấp gọn và giao lại đúng hẹn.</p>
+          <div class="d-flex gap-2 flex-wrap">
+            <a href="https://zalo.me/0356796872" class="cta-bounce animate-bounce">Đặt lịch ngay (Zalo)</a>
+            <a href="tel:0356796872" class="btn btn-light fw-bold">Gọi 0356.79.68.72</a>
+          </div>
+          <div class="d-flex gap-2 mt-4 flex-wrap">
+            <span class="badge-pill">Máy riêng từng khách</span>
+            <span class="badge-pill">Giao nhận 500m</span>
+            <span class="badge-pill">98% khách quay lại</span>
+            <span class="badge-pill">Trả đồ 24h</span>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+          <img src="images/store.jpg" class="img-fluid rounded-4 shadow-lg" alt="Cửa tiệm">
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- Section 2: Hero -->
-  <section id="home">
-    <h2>Giặt sạch, giao nhanh – Quần áo thơm tho chỉ sau 24h cùng MAXCLEAN LAUNDRY</h2>
-    <p>Không còn mất hàng giờ giặt giũ. Chỉ cần một cú click, quần áo được giặt sạch, gấp gọn, giao tận nhà.</p>
-    <p>MAXCLEAN LAUNDRY mang đến dịch vụ giặt ủi – giặt sấy chuyên nghiệp với trang thiết bị hiện đại và quy trình tỉ mỉ, đảm bảo sự hài lòng tuyệt đối.</p>
-    <p><a href="https://zalo.me/0356796872">Đặt lịch ngay – Ưu đãi chỉ còn 20 suất trong tháng này!</a></p>
-    <!-- TODO: Thêm đồng hồ đếm ngược bằng JS nếu cần -->
+  <!-- About -->
+  <section class="py-5 section-muted">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6">
+          <img src="images/owner.jpg" class="img-fluid rounded-4 shadow" alt="Chủ tiệm & không gian máy">
+        </div>
+        <div class="col-md-6">
+          <h2 class="fw-bold">MAXCLEAN LAUNDRY là ai?</h2>
+          <p>Chúng tôi bắt đầu từ một cửa hàng nhỏ (2013). Hơn 10 năm phục vụ cộng đồng Quận 10, MAXCLEAN kiên định với sứ mệnh <strong>“Sạch từ sợi vải – Bền từ niềm tin”</strong>.</p>
+          <ul class="list-unstyled">
+            <li>• Máy Electrolux hiện đại, quy trình chuẩn.</li>
+            <li>• Nước giặt/xả chuyên dụng — an toàn cho da, bền màu vải.</li>
+            <li>• Quy trình minh bạch, <strong>không lẫn đồ</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 3: Problem / Solution -->
-  <section id="services">
-    <h3>Vấn đề &amp; Giải pháp</h3>
-    <p>Bạn đang mệt mỏi vì quần áo luôn chất đống? Giặt mãi vẫn không sạch hoặc không thơm lâu?</p>
-    <ul>
-      <li><strong>Before:</strong> Giặt giũ và vệ sinh giày mất thời gian, quần áo không như ý.</li>
-      <li><strong>After:</strong> Quần áo sạch thơm, gấp gọn, giao tận nơi chỉ sau 24h.</li>
-      <li><strong>Bridge:</strong> MAXCLEAN LAUNDRY giúp bạn tiết kiệm thời gian, công sức và luôn tự tin với trang phục hoàn hảo.</li>
-    </ul>
+  <!-- Services -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Dịch vụ nổi bật</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card p-4 h-100">
+            <div class="feature-icon mb-3">🧺</div>
+            <h5 class="fw-bold">Giặt & Sấy</h5>
+            <p>Máy riêng từng khách — sạch thơm, gấp gọn, trả đồ 24h.</p>
+            <img src="images/machines.jpg" class="img-fluid rounded mt-2" alt="Máy giặt">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card p-4 h-100">
+            <div class="feature-icon mb-3">🧼</div>
+            <h5 class="fw-bold">Giặt Hấp</h5>
+            <p>Áo dài, vest, váy dự tiệc… giữ phom dáng, bền màu.</p>
+            <img src="images/shelves.jpg" class="img-fluid rounded mt-2" alt="Kệ đồ">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card p-4 h-100">
+            <div class="feature-icon mb-3">👟</div>
+            <h5 class="fw-bold">Vệ Sinh Giày</h5>
+            <p>Chăm sóc sneaker, da/da lộn — có gói đặc biệt theo yêu cầu.</p>
+            <img src="images/ba1.jpg" class="img-fluid rounded mt-2" alt="Before After giày">
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 4: Benefits -->
-  <section>
-    <h3>Lợi ích &amp; Tính năng</h3>
-    <ul>
-      <li>Máy móc hiện đại → Giặt nhanh gấp 2 lần → Tiết kiệm tối đa thời gian.</li>
-      <li>Nước giặt &amp; xả chuyên dụng → Không hại vải, an toàn cho da → Quần áo bền màu, mềm mịn.</li>
-      <li>Giao nhận tận nơi trong phạm vi 500m một chiều → Không cần ra tiệm → Rảnh tay tập trung việc quan trọng.</li>
-      <li>Đội ngũ tận tâm → Quy trình rõ ràng, minh bạch → An tâm 100% không lẫn đồ.</li>
-    </ul>
+  <!-- Gallery Before/After -->
+  <section class="py-5 section-muted">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Trước & Sau — Khách hàng nói thay chúng tôi</h2>
+      <div class="row g-3 gallery">
+        <div class="col-6 col-md-4"><img src="images/ba1.jpg" alt="Before After 1" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba2.jpg" alt="Before After 2" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba3.jpg" alt="Before After 3" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba4.jpg" alt="Before After 4" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/ba5.jpg" alt="Before After 5" class="img-fluid"></div>
+        <div class="col-6 col-md-4"><img src="images/packaging.jpg" alt="Đóng gói sạch sẽ" class="img-fluid"></div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 5: Social Proof -->
-  <section>
-    <h3>Khách hàng nói gì?</h3>
-    <blockquote>“Dịch vụ giặt ủi của MAXCLEAN thật tuyệt vời! Quần áo luôn sạch sẽ, thơm tho.” – Anh Minh</blockquote>
-    <blockquote>“Nhanh chóng, giá hợp lý, phục vụ nhiệt tình. Rất đáng tin tưởng!” – Chị Lan</blockquote>
-    <p><strong>5.000+</strong> khách hàng/tháng | <strong>98%</strong> quay lại | <strong>100+</strong> đánh giá 5⭐</p>
+  <!-- Pricing -->
+  <section id="pricing" class="py-5">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Bảng giá tham khảo</h2>
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="feature-card p-4 h-100">
+            <h5 class="fw-bold">Giặt Sấy</h5>
+            <ul class="mb-3">
+              <li>1–3kg: <strong>45k</strong></li>
+              <li>3.1–5kg: <strong>55k</strong></li>
+              <li>Từ 5.1kg: <strong>12k/kg</strong></li>
+            </ul>
+            <p class="mb-1">🔥 Combo Mền/Drap chỉ từ <strong>45k</strong></p>
+            <p class="text-muted">* Mỗi khách một máy riêng — không lẫn đồ</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="feature-card p-4 h-100">
+            <h5 class="fw-bold">Vệ Sinh Giày & Giặt Hấp</h5>
+            <ul class="mb-3">
+              <li>Sneaker cơ bản: <strong>70k</strong> — Chăm sóc đặc biệt: <strong>100–180k</strong></li>
+              <li>Da, da lộn: <strong>120–180k</strong></li>
+              <li>Áo dài: <strong>100–150k</strong> | Áo cưới: <strong>300k</strong> | Vest: <strong>100k</strong></li>
+            </ul>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#priceboard">Xem bảng giá đầy đủ (ảnh)</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 6: About -->
-  <section>
-    <h3>Về chúng tôi</h3>
-    <p>“MAXCLEAN LAUNDRY bắt đầu từ một cửa hàng nhỏ năm 2013. Sau hơn 10 năm, chúng tôi đã trở thành thương hiệu giặt ủi đáng tin cậy tại TP.HCM. Với sứ mệnh ‘Sạch từ sợi vải – Bền từ niềm tin’, chúng tôi không chỉ mang đến dịch vụ giặt ủi chất lượng cao, mà còn giúp khách hàng tận hưởng sự thoải mái và tự tin mỗi ngày.”</p>
+  <!-- Priceboard Modal -->
+  <div class="modal fade" id="priceboard" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <img src="images/priceboard.jpg" class="img-fluid w-100" alt="Bảng giá đầy đủ">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <section id="process" class="py-5 section-muted">
+    <div class="container">
+      <h2 class="text-center fw-bold mb-4">Quy trình 4 bước — Nhanh & Minh bạch</h2>
+      <div class="row g-4 text-center">
+        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">📲</div><p class="mb-0">Đặt lịch online / Zalo</p></div></div>
+        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">🚚</div><p class="mb-0">Nhận đồ tận nơi (500m)</p></div></div>
+        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">🧼</div><p class="mb-0">Máy riêng từng khách</p></div></div>
+        <div class="col-6 col-lg-3"><div class="feature-card p-3 h-100"><div class="feature-icon mx-auto mb-2">✅</div><p class="mb-0">Giao lại 24h — thơm lâu</p></div></div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 7: Quy trình -->
-  <section>
-    <h3>Quy trình làm việc</h3>
-    <ol>
-      <li>Đặt lịch online hoặc gọi 📞 <a href="tel:0356796872">0356.79.68.72</a></li>
-      <li>Nhân viên nhận đồ tận nơi</li>
-      <li>Giặt &amp; sấy bằng máy hiện đại, quy trình chuyên nghiệp</li>
-      <li>Giao lại quần áo sạch, thơm, gấp gọn đúng hẹn</li>
-    </ol>
-    <!-- TODO: chèn video 30s minh họa -->
+  <!-- Big CTA + Countdown -->
+  <section class="py-5" style="background:linear-gradient(120deg, var(--brand) 0%, var(--brand-dark) 100%);color:#fff">
+    <div class="container text-center">
+      <h2 class="fw-bold">Ưu đãi chỉ còn <span id="countdown">--:--:--</span></h2>
+      <p>Đặt lịch hôm nay để nhận quà tặng vệ sinh giày trị giá 70k (số lượng 20 suất trong tháng).</p>
+      <div class="d-flex gap-2 justify-content-center">
+        <a href="https://zalo.me/0356796872" class="cta-bounce animate-bounce">Chat Zalo ngay</a>
+        <a href="tel:0356796872" class="btn btn-light fw-bold">Gọi 0356.79.68.72</a>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 8: Pricing -->
-  <section id="pricing">
-    <h3>Bảng giá &amp; Ưu đãi</h3>
-    <h4>Giặt Sấy</h4>
-    <ul>
-      <li>1–3kg: 45k</li>
-      <li>3.1–5kg: 55k</li>
-      <li>5.1kg+: 12k/kg</li>
-    </ul>
-    <p><strong>🔥 Best Seller:</strong> Combo Mền/Drap chỉ từ 45k</p>
-
-    <h4>Vệ Sinh Giày</h4>
-    <ul>
-      <li>Sneaker cơ bản: 70k | Chăm sóc đặc biệt: 100–180k</li>
-      <li>Da, da lộn: 120–180k</li>
-      <li>Dịch vụ thêm: UV khử mùi, phủ nano, repaint, dán sole…</li>
-    </ul>
-
-    <h4>Giặt Hấp</h4>
-    <ul>
-      <li>Áo dài: 100–150k</li>
-      <li>Áo cưới: 300k</li>
-      <li>Vest: 100k</li>
-      <li>Bộ bảo hộ moto: 250k</li>
-    </ul>
-    <p><em>Mỗi khách một máy riêng – tuyệt đối an toàn &amp; không lẫn đồ</em></p>
-    <p><a href="https://zalo.me/0356796872">Chọn gói &amp; Đặt lịch ngay</a></p>
+  <!-- Contact -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <h2 class="fw-bold">Liên hệ</h2>
+          <p>Địa chỉ: <strong>156 Tân Phước, P.6, Q.10, TP.HCM</strong></p>
+          <p>Hotline: <a href="tel:0356796872" class="fw-bold text-decoration-none">0356.79.68.72</a></p>
+          <p>Email: <a href="mailto:maxcleanlaundry98@gmail.com">maxcleanlaundry98@gmail.com</a></p>
+          <div class="d-flex gap-2">
+            <a href="https://zalo.me/0356796872" class="btn btn-primary">Chat Zalo</a>
+            <a href="tel:0356796872" class="btn btn-outline-dark">Gọi ngay</a>
+          </div>
+          <p class="small text-muted mt-3">* Nếu cần form nhận thông tin miễn phí, tạo Formspree và thay action vào form dưới.</p>
+          <form class="mt-3" method="post" action="">
+            <input class="form-control mb-2" type="text" name="name" placeholder="Họ và tên" required>
+            <input class="form-control mb-2" type="tel" name="phone" placeholder="Số điện thoại" required>
+            <select class="form-select mb-2" name="service">
+              <option value="">Dịch vụ quan tâm</option>
+              <option>Giặt & Sấy</option>
+              <option>Giặt Hấp</option>
+              <option>Vệ Sinh Giày</option>
+            </select>
+            <button class="btn btn-success w-100" type="submit">Gửi ngay — Nhận xác nhận trong 15 phút</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow">
+            <iframe
+              src="https://www.google.com/maps?q=156%20T%C3%A2n%20Ph%C6%B0%E1%BB%9Bc%20Qu%E1%BA%ADn%2010&output=embed"
+              title="Google Map"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Section 9: CTA khẩn cấp -->
-  <section>
-    <h3>Đặt lịch ngay hôm nay để nhận ưu đãi!</h3>
-    <p>Chỉ còn 20 suất trong tháng này</p>
-    <p><a href="https://zalo.me/0356796872">Đặt lịch ngay (Zalo)</a></p>
-    <!-- TODO: Đếm ngược thời gian nếu cần -->
-  </section>
-
-  <!-- Section 10: Contact -->
-  <section id="contact">
-    <h3>Liên hệ</h3>
-    <!-- Lưu ý: form tĩnh sẽ không gửi được nếu không dùng dịch vụ form miễn phí (ví dụ: Formspree). -->
-    <form>
-      <label>Họ và tên:<br><input type="text" name="name" required></label><br>
-      <label>Số điện thoại:<br><input type="tel" name="phone" required></label><br>
-      <label>Dịch vụ quan tâm:<br><input type="text" name="service"></label><br>
-      <button type="submit">Gửi ngay – Nhận xác nhận trong 15 phút</button>
-    </form>
-  </section>
-
-  <!-- Section 11: Footer -->
-  <footer>
-    <p>Địa chỉ: 156 Tân Phước, P.6, Q.10, TP.HCM</p>
-    <p>Hotline: <a href="tel:0356796872">0356.79.68.72</a> | Email: <a href="mailto:maxcleanlaundry98@gmail.com">maxcleanlaundry98@gmail.com</a></p>
-    <p>Chính sách bảo mật | Điều khoản sử dụng</p>
-    <p>Facebook | Zalo</p>
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2">
+        <img src="images/logo.png" alt="Logo" width="36" height="36" class="rounded-circle">
+        <strong>MAXCLEAN LAUNDRY</strong>
+      </div>
+      <small>© 2025 MaxClean Laundry — Chính sách bảo mật • Điều khoản sử dụng</small>
+    </div>
   </footer>
+
+  <!-- Floating CTA buttons -->
+  <div class="float-cta d-none d-sm-flex">
+    <a class="animate-bounce" href="https://zalo.me/0356796872">💬 Zalo</a>
+    <a class="call" href="tel:0356796872">📞 Gọi ngay</a>
+  </div>
+
+  <!-- Mobile bottom bar -->
+  <div class="bottom-bar d-sm-none">
+    <div class="container d-flex justify-content-between gap-2">
+      <a href="https://zalo.me/0356796872" class="btn btn-danger flex-fill">💬 Chat Zalo</a>
+      <a href="tel:0356796872" class="btn btn-outline-dark flex-fill">📞 Gọi</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script>
+    // Countdown đến cuối tháng hiện tại
+    (function(){
+      const el = document.getElementById('countdown');
+      const now = new Date();
+      const end = new Date(now.getFullYear(), now.getMonth()+1, 1, 0,0,0); // đầu tháng sau
+      function tick(){
+        const diff = end - new Date();
+        if(diff <= 0){ el.textContent = "00:00:00"; return; }
+        const s = Math.floor(diff/1000);
+        const d = Math.floor(s/86400);
+        const h = Math.floor((s%86400)/3600);
+        const m = Math.floor((s%3600)/60);
+        const ss = s%60;
+        el.textContent = (d>0? d+"d ":"") + String(h).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(ss).padStart(2,'0');
+      }
+      tick(); setInterval(tick,1000);
+    })();
+  </script>
 </body>
 </html>
+"""
+
+# also include a README for images mapping
+readme = """# MaxClean Landing — Hướng dẫn ảnh
+Tạo thư mục `images/` cạnh file `index.html` rồi bỏ ảnh thật của bạn vào với tên gợi ý sau (có thể đổi tên khác nhưng nhớ sửa đường dẫn trong HTML):
+- logo.png           → logo tròn nền xanh
+- banner.jpg         → banner thương hiệu (nếu không có, có thể dùng ảnh cửa tiệm)
+- store.jpg          → ảnh toàn cảnh cửa tiệm (ngang)
+- owner.jpg          → ảnh chủ tiệm/nhân viên đứng trong tiệm
+- machines.jpg       → ảnh dãy máy giặt/sấy
+- shelves.jpg        → ảnh kệ/quần áo treo gọn
+- priceboard.jpg     → ảnh bảng giá lớn
+- ba1.jpg … ba5.jpg  → các ảnh Before–After vệ sinh giày
+- packaging.jpg      → ảnh đóng gói túi sạch
+
+Sau khi thêm ảnh → Commit lên GitHub → Vercel sẽ tự cập nhật website.
+"""
+
+open(os.path.join(root, "index.html"), "w", encoding="utf-8").write(index_html)
+open(os.path.join(root, "README-images.txt"), "w", encoding="utf-8").write(readme)
+
+zip_path = "/mnt/data/maxclean-pro.zip"
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+    zf.write(os.path.join(root, "index.html"), arcname="index.html")
+    zf.write(os.path.join(root, "README-images.txt"), arcname="README-images.txt")
+
+zip_path
