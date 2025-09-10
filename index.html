@@ -357,30 +357,3 @@ index_html = """<!DOCTYPE html>
   </script>
 </body>
 </html>
-"""
-
-# also include a README for images mapping
-readme = """# MaxClean Landing — Hướng dẫn ảnh
-Tạo thư mục `images/` cạnh file `index.html` rồi bỏ ảnh thật của bạn vào với tên gợi ý sau (có thể đổi tên khác nhưng nhớ sửa đường dẫn trong HTML):
-- logo.png           → logo tròn nền xanh
-- banner.jpg         → banner thương hiệu (nếu không có, có thể dùng ảnh cửa tiệm)
-- store.jpg          → ảnh toàn cảnh cửa tiệm (ngang)
-- owner.jpg          → ảnh chủ tiệm/nhân viên đứng trong tiệm
-- machines.jpg       → ảnh dãy máy giặt/sấy
-- shelves.jpg        → ảnh kệ/quần áo treo gọn
-- priceboard.jpg     → ảnh bảng giá lớn
-- ba1.jpg … ba5.jpg  → các ảnh Before–After vệ sinh giày
-- packaging.jpg      → ảnh đóng gói túi sạch
-
-Sau khi thêm ảnh → Commit lên GitHub → Vercel sẽ tự cập nhật website.
-"""
-
-open(os.path.join(root, "index.html"), "w", encoding="utf-8").write(index_html)
-open(os.path.join(root, "README-images.txt"), "w", encoding="utf-8").write(readme)
-
-zip_path = "/mnt/data/maxclean-pro.zip"
-with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-    zf.write(os.path.join(root, "index.html"), arcname="index.html")
-    zf.write(os.path.join(root, "README-images.txt"), arcname="README-images.txt")
-
-zip_path
