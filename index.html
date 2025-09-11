@@ -217,58 +217,64 @@
 <!-- Process -->
 <section id="process" class="py-5 section-muted">
   <div class="container">
-    <h2 class="fw-bold text-center mb-5">Quy trình 3 dịch vụ chính — Chuyên nghiệp & Minh bạch</h2>
-    <div class="row g-4">
+    <h2 class="fw-bold text-center mb-5">Quy trình 3 dịch vụ — Chuyên nghiệp & Minh bạch</h2>
+    <div class="row g-4 text-center">
       
       <!-- Giặt sấy -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100 text-center">
-          <div class="feature-icon mx-auto mb-3">🧺</div>
+        <div class="feature-card p-4 h-100">
+          <div class="circle-step mx-auto mb-3">🧺</div>
           <h5 class="fw-bold mb-3">Giặt & Sấy</h5>
-          <ul class="list-unstyled text-start small text-muted">
-            <li>✔ Nhận và phân loại</li>
-            <li>✔ Xử lý sơ vết bẩn</li>
-            <li>✔ Giặt máy chuyên nghiệp</li>
-            <li>✔ Sấy & làm mềm vải</li>
-            <li>✔ Gấp & đóng gói sạch sẽ</li>
-          </ul>
+          <p class="small text-muted">Nhận và phân loại<br> Xử lý sơ vết bẩn<br> Giặt máy chuyên nghiệp<br> Sấy & làm mềm vải<br> Gấp & đóng gói sạch sẽ</p>
         </div>
       </div>
 
       <!-- Vệ sinh giày -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100 text-center">
-          <div class="feature-icon mx-auto mb-3">👟</div>
+        <div class="feature-card p-4 h-100">
+          <div class="circle-step mx-auto mb-3">👟</div>
           <h5 class="fw-bold mb-3">Vệ Sinh Giày</h5>
-          <ul class="list-unstyled text-start small text-muted">
-            <li>✔ Nhận & phân loại</li>
-            <li>✔ Tháo dây & lót giày</li>
-            <li>✔ Làm sạch sơ bộ</li>
-            <li>✔ Vệ sinh chuyên sâu</li>
-            <li>✔ Sấy khô – khử mùi – diệt khuẩn</li>
-            <li>✔ Hoàn thiện & đóng gói</li>
-          </ul>
+          <p class="small text-muted">Nhận & phân loại<br> Tháo dây & lót giày<br> Làm sạch sơ bộ<br> Vệ sinh chuyên sâu<br> Sấy khô – khử mùi<br> Hoàn thiện & đóng gói</p>
         </div>
       </div>
 
       <!-- Giặt hấp -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100 text-center">
-          <div class="feature-icon mx-auto mb-3">🧼</div>
+        <div class="feature-card p-4 h-100">
+          <div class="circle-step mx-auto mb-3">🧼</div>
           <h5 class="fw-bold mb-3">Giặt Hấp</h5>
-          <ul class="list-unstyled text-start small text-muted">
-            <li>✔ Nhận & kiểm tra</li>
-            <li>✔ Xử lý sơ bộ vết bẩn</li>
-            <li>✔ Hấp sản phẩm</li>
-            <li>✔ Sấy / ủi định hình</li>
-            <li>✔ Đóng gói sản phẩm</li>
-          </ul>
+          <p class="small text-muted">Nhận & kiểm tra<br> Xử lý sơ bộ vết bẩn<br> Hấp sản phẩm<br> Sấy / ủi định hình<br> Đóng gói sản phẩm</p>
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
+<style>
+.circle-step {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.feature-card {
+  border-radius: 16px;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+</style>
+
 
 <!-- Testimonials -->
 <section id="testimonials" class="py-5 section-muted">
