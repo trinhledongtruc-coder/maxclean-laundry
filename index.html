@@ -264,7 +264,6 @@
       <div class="modal-content"><div class="modal-body p-0"><img src="images/priceboard.png.jpg" class="img-fluid w-100" alt="Bảng giá"></div></div>
     </div>
   </div>
-
 <!-- Process -->
 <section id="process" class="py-5 section-muted">
   <div class="container">
@@ -273,34 +272,83 @@
       
       <!-- Giặt sấy -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100">
+        <div class="feature-card p-4 h-100 text-start">
           <div class="circle-step mx-auto mb-3">🧺</div>
-          <h5 class="fw-bold mb-3">Giặt & Sấy</h5>
-          <p class="small text-muted">Nhận và phân loại<br> Xử lý sơ vết bẩn<br> Giặt máy chuyên nghiệp<br> Sấy & làm mềm vải<br> Gấp & đóng gói sạch sẽ</p>
+          <h5 class="fw-bold text-center mb-3">Giặt & Sấy</h5>
+          <ol class="small text-muted ps-3">
+            <li>Nhận và phân loại</li>
+            <li>Xử lý sơ vết bẩn</li>
+            <li>Giặt máy chuyên nghiệp</li>
+            <li>Sấy & làm mềm vải</li>
+            <li>Gấp & đóng gói sạch sẽ</li>
+          </ol>
         </div>
       </div>
 
       <!-- Vệ sinh giày -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100">
+        <div class="feature-card p-4 h-100 text-start">
           <div class="circle-step mx-auto mb-3">👟</div>
-          <h5 class="fw-bold mb-3">Vệ Sinh Giày</h5>
-          <p class="small text-muted">Nhận & phân loại<br> Tháo dây & lót giày<br> Làm sạch sơ bộ<br> Vệ sinh chuyên sâu<br> Sấy khô – khử mùi<br> Hoàn thiện & đóng gói</p>
+          <h5 class="fw-bold text-center mb-3">Vệ Sinh Giày</h5>
+          <ol class="small text-muted ps-3">
+            <li>Nhận & phân loại</li>
+            <li>Tháo dây & lót giày</li>
+            <li>Làm sạch sơ bộ</li>
+            <li>Vệ sinh chuyên sâu</li>
+            <li>Sấy khô – khử mùi – diệt khuẩn</li>
+            <li>Hoàn thiện & đóng gói</li>
+          </ol>
         </div>
       </div>
 
       <!-- Giặt hấp -->
       <div class="col-md-4">
-        <div class="feature-card p-4 h-100">
+        <div class="feature-card p-4 h-100 text-start">
           <div class="circle-step mx-auto mb-3">🧼</div>
-          <h5 class="fw-bold mb-3">Giặt Hấp</h5>
-          <p class="small text-muted">Nhận & kiểm tra<br> Xử lý sơ bộ vết bẩn<br> Hấp sản phẩm<br> Sấy / ủi định hình<br> Đóng gói sản phẩm</p>
+          <h5 class="fw-bold text-center mb-3">Giặt Hấp</h5>
+          <ol class="small text-muted ps-3">
+            <li>Nhận & kiểm tra</li>
+            <li>Xử lý sơ bộ vết bẩn</li>
+            <li>Hấp sản phẩm</li>
+            <li>Sấy / ủi định hình</li>
+            <li>Đóng gói sản phẩm</li>
+          </ol>
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
+<style>
+.circle-step {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.feature-card {
+  border-radius: 16px;
+  background: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+.feature-card ol {
+  padding-left: 1rem;
+}
+.feature-card ol li {
+  margin-bottom: .3rem;
+}
+</style>
 
 <style>
 .circle-step {
