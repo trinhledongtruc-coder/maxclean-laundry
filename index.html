@@ -154,35 +154,68 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" class="py-5">
-    <div class="container">
-      <h2 class="text-center fw-bold mb-4">Dịch vụ nổi bật</h2>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100">
-            <div class="feature-icon mb-3">🧺</div>
-            <h5 class="fw-bold">Giặt & Sấy</h5>
-            <img src="images/machines.png" class="img-fluid rounded mt-2" alt="Máy giặt">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100">
-            <div class="feature-icon mb-3">🧼</div>
-            <h5 class="fw-bold">Giặt Hấp</h5>
-            <img src="images/shelves.png" class="img-fluid rounded mt-2" alt="Kệ đồ">
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="feature-card p-4 h-100">
-            <div class="feature-icon mb-3">👟</div>
-            <h5 class="fw-bold">Vệ Sinh Giày</h5>
-            <img src="images/ba1.png" class="img-fluid rounded mt-2" alt="Giày Before/After">
-          </div>
+<!-- Services -->
+<section id="services" class="py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-4">Dịch vụ nổi bật</h2>
+    <div class="row g-4">
+
+      <!-- Giặt & Sấy -->
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center">
+          <div class="feature-icon mb-3">🧺</div>
+          <h5 class="fw-bold">Giặt & Sấy</h5>
+          <img src="images/machines.png" class="img-fluid rounded mt-3 shadow-sm" alt="Máy giặt">
         </div>
       </div>
+
+      <!-- Giặt Hấp -->
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center">
+          <div class="feature-icon mb-3">🧼</div>
+          <h5 class="fw-bold">Giặt Hấp</h5>
+          <img src="images/shelves.png" class="img-fluid rounded mt-3 shadow-sm" alt="Kệ đồ">
+        </div>
+      </div>
+
+      <!-- Vệ Sinh Giày -->
+      <div class="col-md-4">
+        <div class="feature-card p-4 h-100 text-center">
+          <div class="feature-icon mb-3">👟</div>
+          <h5 class="fw-bold">Vệ Sinh Giày</h5>
+          <img src="images/ba1.png" class="img-fluid rounded mt-3 shadow-sm" alt="Giày Before/After">
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<style>
+.feature-card {
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem; /* căn giữa icon */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
 
   <!-- Gallery -->
   <section class="py-5 section-muted">
@@ -203,7 +236,7 @@
   <section id="pricing" class="py-5">
     <div class="container text-center">
       <h2 class="fw-bold mb-4">Bảng giá tham khảo</h2>
-      <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#priceboard">Xem bảng giá đầy đủ </button>
+      <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#priceboard">Xem bảng giá </button>
     </div>
   </section>
 
